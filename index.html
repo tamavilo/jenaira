@@ -80,7 +80,8 @@
             try {
                 const response = await fetch(GAS_URL + "?action=getFolders");
                 if (!response.ok) throw new Error("Gagal mengambil data");
-                allData = await response.json();
+                let fetchData = await response.json();
+                allData = fetchData.reverse();
                 renderFolders();
             } catch (e) {
                 statusDiv.innerHTML = `<span class="text-rose-500 font-bold">Ups, gagal memuat: ${e.message}</span>`;
