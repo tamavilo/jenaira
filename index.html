@@ -80,8 +80,12 @@
             try {
                 const response = await fetch(GAS_URL + "?action=getFolders");
                 if (!response.ok) throw new Error("Gagal mengambil data");
-                let fetchData = await response.json();
-                allData = fetchData.reverse();
+                
+                // Mengambil data JSON lalu membalik urutannya (reverse) 
+                // agar baris paling bawah di spreadsheet tampil pertama kali
+                let fetchedData = await response.json();
+                allData = fetchedData.reverse();
+                
                 renderFolders();
             } catch (e) {
                 statusDiv.innerHTML = `<span class="text-rose-500 font-bold">Ups, gagal memuat: ${e.message}</span>`;
