@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Album Foto Jena</title>
-    <link rel="icon" type="image/x-icon" href="fav.png">
+    <title>Album Foto & Video Si Kecil</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="fav.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
         body { font-family: 'Quicksand', sans-serif; }
@@ -13,7 +13,7 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(37, 37, 37, 0.774);
+            background: rgba(85, 84, 84, 0.637);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -30,15 +30,16 @@
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <span class="text-2xl font-bold text-rose-500">🧸 Jennaira Nur Nazila</span>
             <div class="space-x-4 text-sky-700 font-bold">
-                <a href="upload.html"><button class="px-4 py-2 rounded-full shadow-md text-rose-500 hover:text-rose-700 font-bold border border-rose-100">+ Foto Baru</button></a>
+                <a href="upload.html" class="hover:text-rose-500"><button class="px-4 py-2 rounded-full shadow-md text-rose-500 hover:text-rose-700 font-bold border border-rose-100"> + Foto Baru</button></a>
             </div>
         </div>
     </nav>
 
+
     <!-- Header -->
     <header class="text-center py-12 px-6">
-        <h1 class="text-4xl font-bold text-rose-500 mb-2">Album Foto Jena ✨</h1>
-        <p class="text-sky-600 italic">"Menyimpan setiap senyum dan tawa dalam bingkai kenangan"</p>
+        <h1 class="text-4xl font-bold text-rose-500 mb-2">Album Jennaira ✨</h1>
+        <p class="text-sky-600 italic">"Menyimpan setiap senyum, tawa, dalam bingkai kenangan"</p>
     </header>
 
     <main class="flex-grow max-w-4xl w-full mx-auto p-6">
@@ -47,9 +48,9 @@
             <div id="loadingFolders" class="col-span-full text-center py-10 text-sky-700 font-bold">Sedang membuka album...</div>
         </div>
 
-        <!-- Halaman Galeri Gambar -->
+        <!-- Halaman Galeri Gambar & Video -->
         <div id="galleryView" class="hidden">
-            <button onclick="showFolders()" class="mb-6 flex items-center bg-white px-4 py-2 rounded-full shadow-md text-rose-500 hover:text-rose-700 font-bold border border-rose-100">
+            <button onclick="showFolders()" class="mb-6 flex items-center bg-white px-4 py-2 rounded-full shadow-md text-rose-500 hover:text-rose-700 font-bold border border-rose-100 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                 Kembali ke Daftar Album
             </button>
@@ -60,18 +61,29 @@
 
     <!-- Footer -->
     <footer class="bg-white py-6 mt-10 text-center text-sky-700 border-t border-sky-100">
-        <p>© 2026 Jennaira Nur Nazila. Dibuat oleh Iwan ❤️ Aisyah</p>
+        <p>© 2026 Jennaira Nur Nazila. Dibuat Oleh Iwan ❤️ Aisyah</p>
     </footer>
 
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <img id="lightboxImg" src="" class="max-w-full max-h-full rounded-2xl shadow-2xl border-4 border-white">
-        <button onclick="closeLightbox()" class="absolute top-5 right-5 text-rose-500 bg-white p-3 rounded-full shadow-lg hover:bg-rose-50 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
+    <!-- Lightbox (Mendukung Gambar & Pemutar Video) -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <!-- Container penahan agar klik di dalam gambar/video tidak menutup lightbox -->
+        <div class="relative w-full max-w-4xl max-h-[90vh] flex justify-center items-center" onclick="event.stopPropagation()">
+            
+            <!-- Elemen Gambar -->
+            <img id="lightboxImg" src="" class="max-w-full max-h-[85vh] rounded-2xl shadow-2xl border-4 border-white hidden object-contain">
+            
+            <!-- Elemen Video (Google Drive Player) -->
+            <iframe id="lightboxVideo" src="" class="w-full aspect-video rounded-2xl shadow-2xl border-4 border-white hidden bg-black" allow="autoplay; fullscreen"></iframe>
+            
+            <!-- Tombol Tutup -->
+            <button onclick="closeLightbox()" class="absolute -top-5 -right-5 text-rose-500 bg-white p-3 rounded-full shadow-lg hover:bg-rose-50 transition-colors z-50">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+        </div>
     </div>
 
     <script>
+        // --- MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI ---
         const GAS_URL = "https://script.google.com/macros/s/AKfycbzSDUg6MQIsG61HfBo_PiB4gWAinrg3HNRpCnVEFY50cDZ7BKMMQqRccjKlvIZlf_Uz6A/exec"; 
         let allData = [];
 
@@ -81,11 +93,14 @@
                 const response = await fetch(GAS_URL + "?action=getFolders");
                 if (!response.ok) throw new Error("Gagal mengambil data");
                 
-                // Mengambil data JSON lalu membalik urutannya (reverse) 
-                // agar baris paling bawah di spreadsheet tampil pertama kali
+                // Balik urutan agar data terbaru ada di paling atas
                 let fetchedData = await response.json();
                 allData = fetchedData.reverse();
                 
+                if(allData.length === 0) {
+                    statusDiv.innerHTML = "Belum ada album. Mulai unggah media Anda!";
+                    return;
+                }
                 renderFolders();
             } catch (e) {
                 statusDiv.innerHTML = `<span class="text-rose-500 font-bold">Ups, gagal memuat: ${e.message}</span>`;
@@ -96,7 +111,7 @@
             const folderView = document.getElementById('folderView');
             const folders = [...new Set(allData.map(row => row[1] || "Tanpa Nama Folder"))];
             folderView.innerHTML = folders.map(folder => `
-                <div onclick="showGallery('${folder}')" class="album-card bg-white p-4 rounded-3xl shadow-lg border-b-4 border-sky-200 cursor-pointer text-center">
+                <div onclick="showGallery('${folder}')" class="album-card bg-white p-4 rounded-3xl shadow-lg border-b-4 border-sky-200 cursor-pointer text-center flex flex-col justify-between">
                     <div class="bg-rose-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 text-rose-500 text-3xl">🧸</div>
                     <p class="font-bold text-sky-900 truncate">${folder}</p>
                 </div>
@@ -108,21 +123,79 @@
             document.getElementById('galleryView').classList.remove('hidden');
             document.getElementById('currentFolderName').textContent = `Album: ${folderName}`;
             
-            const images = allData.filter(row => row[1] === folderName);
-            document.getElementById('imageGrid').innerHTML = images.map(img => `
-                <div class="bg-white p-2 rounded-2xl shadow hover:shadow-xl cursor-pointer transition-all hover:scale-105 border-4 border-white" onclick="openLightbox('${img[3]}')">
-                    <img src="${img[3]}" class="w-full h-40 object-cover rounded-xl" alt="Foto Anak">
-                </div>
-            `).join('');
+            const mediaItems = allData.filter(row => row[1] === folderName);
+            document.getElementById('imageGrid').innerHTML = mediaItems.map(item => {
+                const fileName = item[2];
+                const url = item[3];
+                // Deteksi apakah ini file video dari ekstensinya
+                const isVideo = fileName.toLowerCase().match(/\.(mp4|webm|mov|avi|mkv)$/);
+                
+                let thumbnailHtml = '';
+                let badgeHtml = '';
+
+                if (isVideo) {
+                    // Tampilan blok (thumbnail buatan) untuk video
+                    thumbnailHtml = `
+                        <div class="w-full h-40 bg-sky-100 rounded-xl flex flex-col items-center justify-center text-sky-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            <span class="text-[10px] font-bold mt-2 text-sky-600 px-2 truncate w-full text-center">${fileName}.mp4</span>
+                        </div>`;
+                    badgeHtml = `<div class="absolute top-2 left-2 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow">VIDEO</div>`;
+                } else {
+                    // Tampilan gambar asli
+                    thumbnailHtml = `<img src="${url}" class="w-full h-40 object-cover rounded-xl" alt="${fileName}">`;
+                }
+
+                return `
+                <div class="bg-white p-2 rounded-2xl shadow hover:shadow-xl cursor-pointer transition-all hover:scale-105 border-4 border-white relative group" onclick="openLightbox('${url}', '${fileName}')">
+                    ${thumbnailHtml}
+                    ${badgeHtml}
+                    <!-- Efek hover transparan -->
+                    <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"></div>
+                </div>`;
+            }).join('');
         }
 
-        function openLightbox(src) {
-            document.getElementById('lightboxImg').src = src;
+        function openLightbox(url, fileName) {
+            const isVideo = fileName.toLowerCase().match(/\.(mp4|webm|mov|avi|mkv)$/);
+            const imgEl = document.getElementById('lightboxImg');
+            const vidEl = document.getElementById('lightboxVideo');
+
+            if (isVideo) {
+                // Sembunyikan gambar, tampilkan iframe video
+                imgEl.classList.add('hidden');
+                vidEl.classList.remove('hidden');
+
+                // Ekstrak ID File dari link Google Drive untuk dimasukkan ke player khusus preview Drive
+                let fileId = "";
+                const idMatch = url.match(/[-\w]{25,}/); // Mencari deretan karakter ID Drive
+                if (idMatch) fileId = idMatch[0];
+
+                if (fileId) {
+                    // Gunakan format player preview Google Drive
+                    vidEl.src = `https://drive.google.com/file/d/${fileId}/preview`;
+                } else {
+                    vidEl.src = url;
+                }
+            } else {
+                // Sembunyikan iframe video, tampilkan gambar
+                vidEl.classList.add('hidden');
+                imgEl.classList.remove('hidden');
+                
+                vidEl.src = ""; // Hentikan video jika ada yang sebelumnya jalan
+                imgEl.src = url;
+            }
+            
             document.getElementById('lightbox').style.display = 'flex';
         }
 
-        function closeLightbox() {
+        function closeLightbox(event) {
+            // Jika dipanggil oleh event klik dan kliknya bukan pada background hitam (melainkan videonya), hiraukan
+            if(event && event.target.id !== 'lightbox' && event.target.tagName !== 'BUTTON' && event.target.tagName !== 'svg' && event.target.tagName !== 'path') return;
+            
             document.getElementById('lightbox').style.display = 'none';
+            document.getElementById('lightboxVideo').src = ""; // Matikan pemutar video agar suaranya berhenti
+            document.getElementById('lightboxImg').src = ""; 
         }
 
         function showFolders() {
