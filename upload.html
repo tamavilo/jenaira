@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud Image Uploader</title>
-    <!-- Menggunakan Tailwind CSS melalui CDN untuk styling yang cepat dan modern -->
+    <title>Cloud Media Uploader</title>
+    <link rel="icon" type="image/x-icon" href="fav.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Animasi loading kustom */
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .animate-spin-custom {
-            animation: spin 1s linear infinite;
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .animate-spin-custom { animation: spin 1s linear infinite; }
     </style>
 </head>
-<body class="min-h-screen bg-gray-50 flex items-center justify-center p-4 font-sans text-gray-800">
+<body class="min-h-screen bg-indigo-50 flex items-center justify-center p-4 font-sans text-gray-800">
 
     <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden">
+        
+        <!-- Header -->
+
         <nav class="bg-white shadow-sm py-4 px-6 sticky top-0 z-50">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <span class="text-2xl font-bold text-rose-500">🧸 Upload</span>
@@ -28,17 +26,17 @@
             </div>
         </div>
     </nav>
-        <!-- Header -->
-        <div class="bg-blue-600 p-6 text-white text-center">
+
+        <div class="bg-indigo-600 p-6 text-white text-center">
             <h1 class="text-2xl font-bold flex items-center justify-center gap-2">
-               <span class="text-2xl font-bold text-white-">🧸 Jennaira Nur Nazila</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Uploader Jennaira
             </h1>
-            <p class="text-blue-100 mt-2 text-sm">Unggah gambar ke Google Drive & catat di Spreadsheet</p>
+            <p class="text-indigo-100 mt-2 text-sm">Unggah Foto & Video Jennaira ke Google Drive</p>
         </div>
 
         <div class="p-6 md:p-8 space-y-6">
             
-            <!-- Area Status Message (disembunyikan secara default) -->
             <div id="statusMessage" class="hidden p-4 rounded-lg flex items-start gap-3">
                 <div id="statusIcon" class="shrink-0 mt-0.5"></div>
                 <p id="statusText" class="text-sm font-medium"></p>
@@ -47,86 +45,63 @@
             <!-- Folder Name Input -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
-                    <!-- Ikon Folder -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
-                    Nama Folder Tujuan
+                    Nama Folder (Di Drive & Album)
                 </label>
-                <input
-                    type="text"
-                    id="folderName"
-                    placeholder="Contoh: Laporan Agustus, Dokumentasi Proyek"
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all disabled:bg-gray-100"
-                />
+                <input type="text" id="folderName" placeholder="Contoh: Ulang Tahun, Liburan 2026" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all disabled:bg-gray-100"/>
             </div>
 
             <!-- Upload Area -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Gambar</label>
-                <div 
-                    id="dropZone"
-                    class="border-2 border-dashed border-blue-300 bg-blue-50 hover:bg-blue-100 rounded-xl p-8 text-center cursor-pointer transition-all"
-                >
-                    <input 
-                        type="file" 
-                        id="fileInput"
-                        multiple 
-                        accept="image/*" 
-                        class="hidden" 
-                    />
-                    <div class="flex justify-center mb-3">
-                        <div class="bg-blue-100 p-3 rounded-full text-blue-600">
-                            <!-- Ikon Image -->
+                <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Foto atau Video</label>
+                <div id="dropZone" class="border-2 border-dashed border-indigo-300 bg-indigo-50 hover:bg-indigo-100 rounded-xl p-8 text-center cursor-pointer transition-all">
+                    <!-- Mendukung image dan video -->
+                    <input type="file" id="fileInput" multiple accept="image/*,video/mp4,video/webm,video/quicktime" class="hidden" />
+                    <div class="flex justify-center gap-4 mb-3">
+                        <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                         </div>
+                        <div class="bg-indigo-100 p-3 rounded-full text-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
+                        </div>
                     </div>
-                    <p class="text-gray-700 font-medium mb-1">Klik atau seret gambar ke sini</p>
-                    <p class="text-gray-500 text-sm">Mendukung format JPG, PNG, WEBP (Bisa pilih banyak)</p>
+                    <p class="text-gray-700 font-medium mb-1">Klik atau seret file ke sini</p>
+                    <p class="text-gray-500 text-sm">Bisa Foto (Otomatis dikompres) & Video (Maksimal 15 MB)</p>
                 </div>
             </div>
 
-            <!-- Image Previews Container -->
+            <!-- Previews Container -->
             <div id="previewSection" class="hidden">
                 <h3 class="text-sm font-medium text-gray-700 mb-3 flex justify-between items-center">
-                    <span id="previewCount">Gambar Terpilih (0)</span>
-                    <button 
-                        id="clearAllBtn"
-                        class="text-xs text-red-500 hover:text-red-700 font-medium"
-                    >
-                        Hapus Semua
-                    </button>
+                    <span id="previewCount">File Terpilih (0)</span>
+                    <button id="clearAllBtn" class="text-xs text-red-500 hover:text-red-700 font-medium">Hapus Semua</button>
                 </h3>
                 <div id="previewGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-64 overflow-y-auto p-2 bg-gray-50 rounded-xl border border-gray-200">
-                    <!-- Preview gambar akan di-generate di sini oleh JavaScript -->
+                    <!-- Previews generated here -->
                 </div>
             </div>
 
             <!-- Submit Button -->
-            <button
-                id="submitBtn"
-                disabled
-                class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-4 px-6 rounded-xl transition-colors flex justify-center items-center gap-2 shadow-lg hover:shadow-xl"
-            >
+            <button id="submitBtn" disabled class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white font-semibold py-4 px-6 rounded-xl transition-colors flex justify-center items-center gap-2 shadow-lg">
                 <div id="btnIconNorm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                 </div>
                 <div id="btnIconLoad" class="hidden">
                     <svg class="animate-spin-custom" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
                 </div>
                 <span id="btnText">Mulai Unggah</span>
             </button>
-
         </div>
     </div>
 
     <script>
-        // --- KONFIGURASI URL APPS SCRIPT ---
+        // --- MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI ---
         const GAS_URL = "https://script.google.com/macros/s/AKfycbzSDUg6MQIsG61HfBo_PiB4gWAinrg3HNRpCnVEFY50cDZ7BKMMQqRccjKlvIZlf_Uz6A/exec"; 
+        const MAX_VIDEO_SIZE = 15 * 1024 * 1024; // 15 MB
 
-        // State variables
-        let selectedFiles = []; // Menyimpan objek { file: File, url: string }
+        let selectedFiles = [];
         let isUploading = false;
 
-        // DOM Elements
         const folderNameInput = document.getElementById('folderName');
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
@@ -142,63 +117,47 @@
         const btnIconLoad = document.getElementById('btnIconLoad');
         const btnText = document.getElementById('btnText');
 
-        // Ikon SVG untuk status
-        const iconSuccess = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>`;
-        const iconError = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+        const iconSuccess = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>`;
+        const iconError = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
 
-        // Event Listeners
-        dropZone.addEventListener('click', () => {
-            if (!isUploading) fileInput.click();
-        });
-
-        // Drag & Drop feature
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('bg-blue-100', 'border-blue-500');
-        });
-        dropZone.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('bg-blue-100', 'border-blue-500');
-        });
+        dropZone.addEventListener('click', () => { if (!isUploading) fileInput.click(); });
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('bg-indigo-100', 'border-indigo-500'); });
+        dropZone.addEventListener('dragleave', (e) => { e.preventDefault(); dropZone.classList.remove('bg-indigo-100', 'border-indigo-500'); });
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
-            dropZone.classList.remove('bg-blue-100', 'border-blue-500');
-            if (!isUploading && e.dataTransfer.files) {
-                processFiles(Array.from(e.dataTransfer.files));
-            }
+            dropZone.classList.remove('bg-indigo-100', 'border-indigo-500');
+            if (!isUploading && e.dataTransfer.files) processFiles(Array.from(e.dataTransfer.files));
         });
-
         fileInput.addEventListener('change', (e) => {
-            if (e.target.files) {
-                processFiles(Array.from(e.target.files));
-                fileInput.value = ''; // Reset
-            }
+            if (e.target.files) { processFiles(Array.from(e.target.files)); fileInput.value = ''; }
         });
 
         folderNameInput.addEventListener('input', updateSubmitButton);
-        
-        clearAllBtn.addEventListener('click', () => {
-            selectedFiles = [];
-            renderPreviews();
-        });
-
+        clearAllBtn.addEventListener('click', () => { selectedFiles = []; renderPreviews(); });
         submitBtn.addEventListener('click', handleUpload);
 
-        // Functions
         function processFiles(files) {
-            const imageFiles = files.filter(f => f.type.startsWith('image/'));
-            
-            imageFiles.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    selectedFiles.push({
-                        file: file,
-                        url: e.target.result
-                    });
-                    renderPreviews();
-                };
-                reader.readAsDataURL(file);
+            let errorMsg = '';
+            files.forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        selectedFiles.push({ file: file, type: 'image', url: e.target.result });
+                        renderPreviews();
+                    };
+                    reader.readAsDataURL(file);
+                } else if (file.type.startsWith('video/')) {
+                    if (file.size > MAX_VIDEO_SIZE) {
+                        errorMsg = `Video "${file.name}" terlalu besar. Maksimal 15MB.`;
+                    } else {
+                        // Generate object URL for video preview
+                        const videoUrl = URL.createObjectURL(file);
+                        selectedFiles.push({ file: file, type: 'video', url: videoUrl });
+                        renderPreviews();
+                    }
+                }
             });
+            if(errorMsg) alert(errorMsg);
         }
 
         function removeFile(index) {
@@ -211,24 +170,31 @@
                 previewSection.classList.add('hidden');
             } else {
                 previewSection.classList.remove('hidden');
-                previewCount.textContent = `Gambar Terpilih (${selectedFiles.length})`;
-                
+                previewCount.textContent = `File Terpilih (${selectedFiles.length})`;
                 previewGrid.innerHTML = '';
+                
                 selectedFiles.forEach((item, index) => {
-                    const div = document.createElement('div');
-                    div.className = "relative group rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm";
-                    div.innerHTML = `
-                        <img src="${item.url}" alt="${item.file.name}" class="w-full h-24 object-cover" />
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <button onclick="removeFile(${index})" class="bg-red-500 text-white p-1.5 rounded-full hover:bg-red-600 transition-colors" title="Hapus gambar">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                            </button>
-                        </div>
-                        <div class="p-2 text-xs truncate text-gray-600 text-center" title="${item.file.name}">
-                            ${item.file.name}
+                    const isVideo = item.type === 'video';
+                    const previewContent = isVideo 
+                        ? `<video src="${item.url}" class="w-full h-24 object-cover bg-black"></video>`
+                        : `<img src="${item.url}" class="w-full h-24 object-cover" />`;
+                    
+                    const iconType = isVideo 
+                        ? `<div class="absolute top-1 left-1 bg-black/60 text-white rounded p-1"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>`
+                        : '';
+
+                    previewGrid.innerHTML += `
+                        <div class="relative group rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm">
+                            ${previewContent}
+                            ${iconType}
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <button onclick="removeFile(${index})" class="bg-red-500 text-white p-1.5 rounded-full hover:bg-red-600 transition-colors" title="Hapus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                </button>
+                            </div>
+                            <div class="p-2 text-[10px] truncate text-gray-600 text-center" title="${item.file.name}">${item.file.name}</div>
                         </div>
                     `;
-                    previewGrid.appendChild(div);
                 });
             }
             updateSubmitButton();
@@ -236,71 +202,49 @@
 
         function updateSubmitButton() {
             const folderVal = folderNameInput.value.trim();
-            if (selectedFiles.length > 0 && folderVal !== '' && !isUploading) {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
+            submitBtn.disabled = !(selectedFiles.length > 0 && folderVal !== '' && !isUploading);
         }
 
         function showStatus(type, message) {
-            statusMessage.classList.remove('hidden', 'bg-green-50', 'text-green-700', 'border-green-200', 'bg-red-50', 'text-red-700', 'border-red-200');
-            statusMessage.classList.add('border');
-
-            if (type === 'success') {
-                statusMessage.classList.add('bg-green-50', 'text-green-700', 'border-green-200');
-                statusIcon.innerHTML = iconSuccess;
-            } else {
-                statusMessage.classList.add('bg-red-50', 'text-red-700', 'border-red-200');
-                statusIcon.innerHTML = iconError;
-            }
+            statusMessage.className = `p-4 rounded-lg flex items-start gap-3 border ${type === 'success' ? 'bg-green-50 text-green-700 border-green-200' : 'bg-red-50 text-red-700 border-red-200'}`;
+            statusIcon.innerHTML = type === 'success' ? iconSuccess : iconError;
             statusText.textContent = message;
         }
 
-        // PERUBAHAN: Menurunkan resolusi & kualitas agar teks Base64 cukup masuk di Spreadsheet
-        function compressImage(file, maxWidth = 400, maxHeight = 400, quality = 0.5) {
+        // Kompres khusus gambar
+        function compressImage(file, maxWidth = 900, maxHeight = 900, quality = 0.7) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
-                reader.onload = (event) => {
+                reader.onload = (e) => {
                     const img = new Image();
-                    img.src = event.target.result;
+                    img.src = e.target.result;
                     img.onload = () => {
-                        let width = img.width;
-                        let height = img.height;
-
-                        if (width > maxWidth || height > maxHeight) {
-                            if (width > height) {
-                                height = Math.round((height * maxWidth) / width);
-                                width = maxWidth;
-                            } else {
-                                width = Math.round((width * maxHeight) / height);
-                                height = maxHeight;
-                            }
+                        let w = img.width, h = img.height;
+                        if (w > maxWidth || h > maxHeight) {
+                            if (w > h) { h = Math.round((h * maxWidth) / w); w = maxWidth; } 
+                            else { w = Math.round((w * maxHeight) / h); h = maxHeight; }
                         }
-
                         const canvas = document.createElement('canvas');
-                        canvas.width = width;
-                        canvas.height = height;
+                        canvas.width = w; canvas.height = h;
                         const ctx = canvas.getContext('2d');
-                        
-                        ctx.fillStyle = '#FFFFFF';
-                        ctx.fillRect(0, 0, width, height);
-                        
-                        ctx.drawImage(img, 0, 0, width, height);
-
-                        // Ini menghasilkan string lengkap dengan awalan "data:image/jpeg;base64,"
-                        const dataUrl = canvas.toDataURL('image/jpeg', quality);
-                        
-                        resolve({
-                            name: file.name,
-                            mimeType: 'image/jpeg', 
-                            base64: dataUrl // Kita kirim seluruh teks (tidak dipotong lagi)
-                        });
+                        ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, w, h);
+                        ctx.drawImage(img, 0, 0, w, h);
+                        resolve({ name: file.name, mimeType: 'image/jpeg', base64: canvas.toDataURL('image/jpeg', quality).split(',')[1] });
                     };
-                    img.onerror = error => reject(error);
+                    img.onerror = reject;
                 };
-                reader.onerror = error => reject(error);
+                reader.onerror = reject;
+            });
+        }
+
+        // Membaca video (tanpa kompresi, murni Base64)
+        function readVideoAsBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve({ name: file.name, mimeType: file.type, base64: reader.result.split(',')[1] });
+                reader.onerror = reject;
             });
         }
 
@@ -308,33 +252,23 @@
             const folderName = folderNameInput.value.trim();
             if (!folderName || selectedFiles.length === 0) return;
 
-            // Set loading state
-            isUploading = true;
-            updateSubmitButton();
-            folderNameInput.disabled = true;
+            isUploading = true; updateSubmitButton(); folderNameInput.disabled = true;
             statusMessage.classList.add('hidden');
-            
-            btnIconNorm.classList.add('hidden');
-            btnIconLoad.classList.remove('hidden');
-            btnText.textContent = `Mengompres ke Base64 & Mengunggah...`;
-            
+            btnIconNorm.classList.add('hidden'); btnIconLoad.classList.remove('hidden');
+            btnText.textContent = `Menyiapkan & Mengunggah...`;
             dropZone.classList.add('bg-gray-50', 'border-gray-300', 'cursor-not-allowed');
-            dropZone.classList.remove('border-blue-300', 'bg-blue-50', 'hover:bg-blue-100');
 
             try {
-                // Kompresi dan konversi
+                // Proses file satu persatu sesuai tipenya
                 const filesData = await Promise.all(
                     selectedFiles.map(async (item) => {
-                        return await compressImage(item.file);
+                        if(item.type === 'image') return await compressImage(item.file);
+                        else return await readVideoAsBase64(item.file);
                     })
                 );
 
-                const payload = {
-                    folderName: folderName,
-                    files: filesData
-                };
+                const payload = { folderName: folderName, files: filesData };
 
-                // --- PROSES FETCH ASLI ---
                 const response = await fetch(GAS_URL, {
                     method: 'POST',
                     body: JSON.stringify(payload)
@@ -342,42 +276,26 @@
                 
                 const responseText = await response.text();
                 let result;
-                
-                try {
-                    result = JSON.parse(responseText);
-                } catch (e) {
-                    if (responseText.toLowerCase().includes('sukses') || responseText.toLowerCase().includes('success') || responseText.toLowerCase().includes('berhasil')) {
+                try { result = JSON.parse(responseText); } 
+                catch (e) {
+                    if (responseText.toLowerCase().includes('sukses') || responseText.toLowerCase().includes('berhasil')) {
                         result = { status: 'success', message: responseText };
-                    } else {
-                        throw new Error(`Respon server tidak valid: ${responseText}`);
-                    }
+                    } else throw new Error(`Respon server tidak valid: ${responseText}`);
                 }
                 
-                if(result.status !== 'success') {
-                    throw new Error(result.message || 'Gagal menyimpan ke spreadsheet.');
-                }
+                if(result.status !== 'success') throw new Error(result.message);
 
-                showStatus('success', `${selectedFiles.length} teks Base64 gambar berhasil dicatat di Spreadsheet!`);
-                
-                // Reset Form
-                selectedFiles = [];
-                folderNameInput.value = '';
-                renderPreviews();
+                showStatus('success', `${selectedFiles.length} file berhasil diunggah ke Google Drive dan dicatat di Spreadsheet!`);
+                selectedFiles = []; folderNameInput.value = ''; renderPreviews();
 
             } catch (error) {
-                showStatus('error', 'Terjadi kesalahan saat mengunggah: ' + error.message);
+                showStatus('error', 'Terjadi kesalahan: ' + error.message);
             } finally {
-                // Reset loading state
-                isUploading = false;
-                updateSubmitButton();
-                folderNameInput.disabled = false;
-                
-                btnIconNorm.classList.remove('hidden');
-                btnIconLoad.classList.add('hidden');
+                isUploading = false; updateSubmitButton(); folderNameInput.disabled = false;
+                btnIconNorm.classList.remove('hidden'); btnIconLoad.classList.add('hidden');
                 btnText.textContent = 'Mulai Unggah';
-                
                 dropZone.classList.remove('bg-gray-50', 'border-gray-300', 'cursor-not-allowed');
-                dropZone.classList.add('border-blue-300', 'bg-blue-50', 'hover:bg-blue-100');
+                dropZone.classList.add('border-indigo-300', 'bg-indigo-50', 'hover:bg-indigo-100');
             }
         }
     </script>
