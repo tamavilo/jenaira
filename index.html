@@ -153,7 +153,7 @@
                     badgeHtml = `<div class="absolute top-2 left-2 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow">VIDEO</div>`;
                 } else {
                     // Tampilan gambar asli
-                    thumbnailHtml = `<img src="${directUrl}" class="w-full h-40 object-cover rounded-xl" alt="${fileName}">`;
+                    thumbnailHtml = `<img src="${directUrl}" loading="lazy" class="w-full h-40 object-cover rounded-xl" alt="${fileName}">`;
                 }
 
                 return `
