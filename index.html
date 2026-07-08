@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jennaira - Album</title>
+    <title>Album Foto & Video Si Kecil</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/x-icon" href="fav.png">
     <style>
@@ -170,6 +170,8 @@
             const isVideo = fileName.toLowerCase().match(/\.(mp4|webm|mov|avi|mkv)$/);
             const imgEl = document.getElementById('lightboxImg');
             const vidEl = document.getElementById('lightboxVideo');
+            const file = extractFileId(url);
+            const lightUrl = `https://lh3.googleusercontent.com/d/${file}`;
 
             if (isVideo) {
                 // Sembunyikan gambar, tampilkan iframe video
@@ -193,7 +195,7 @@
                 imgEl.classList.remove('hidden');
                 
                 vidEl.src = ""; // Hentikan video jika ada yang sebelumnya jalan
-                imgEl.src = url;
+                imgEl.src = lightUrl;
             }
             
             document.getElementById('lightbox').style.display = 'flex';
