@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Album Foto & Video Si Kecil</title>
+    <title>Jennaira - Album</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/x-icon" href="fav.png">
     <style>
@@ -118,6 +118,13 @@
             `).join('');
         }
 
+        function extractFileId(url) {
+    // Regex ini menangani format /d/ID/view atau id=ID
+    const regex = /(?:\/d\/|id=)([a-zA-Z0-9_-]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+}
+
         function showGallery(folderName) {
             document.getElementById('folderView').classList.add('hidden');
             document.getElementById('galleryView').classList.remove('hidden');
@@ -127,6 +134,9 @@
             document.getElementById('imageGrid').innerHTML = mediaItems.map(item => {
                 const fileName = item[2];
                 const url = item[3];
+                 const fileId = extractFileId(item[3]);
+    if (!fileId) return `<p>Format URL tidak dikenali: ${item.url}</p>`;
+    const directUrl = `https://lh3.googleusercontent.com/d/${fileId}`;
                 // Deteksi apakah ini file video dari ekstensinya
                 const isVideo = fileName.toLowerCase().match(/\.(mp4|webm|mov|avi|mkv)$/);
                 
@@ -143,7 +153,7 @@
                     badgeHtml = `<div class="absolute top-2 left-2 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow">VIDEO</div>`;
                 } else {
                     // Tampilan gambar asli
-                    thumbnailHtml = `<img src="${url}" class="w-full h-40 object-cover rounded-xl" alt="${fileName}">`;
+                    thumbnailHtml = `<img src="${directUrl}" class="w-full h-40 object-cover rounded-xl" alt="${fileName}">`;
                 }
 
                 return `
