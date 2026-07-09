@@ -275,6 +275,7 @@
                 });
                 
                 const responseText = await response.text();
+                const album = `<a href="/" class="text-blue-600 text-underline hover:text-red-500">Lihat Album</a>`;
                 let result;
                 try { result = JSON.parse(responseText); } 
                 catch (e) {
@@ -285,7 +286,7 @@
                 
                 if(result.status !== 'success') throw new Error(result.message);
 
-                showStatus('success', `${selectedFiles.length} file berhasil diunggah ke Google Drive dan dicatat di Spreadsheet! <a href="/" class="text-blue-600 text-underline hover:text-red-500">Lihat Album</a>`);
+                showStatus('success', `${selectedFiles.length} file berhasil diunggah ke Google Drive dan dicatat di Spreadsheet! ${album}`);
                 selectedFiles = []; folderNameInput.value = ''; renderPreviews();
 
             } catch (error) {
