@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud Media Uploader</title>
+    <title>Jennaira Media Uploader</title>
     <link rel="icon" type="image/x-icon" href="fav.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -285,7 +285,7 @@
                 
                 if(result.status !== 'success') throw new Error(result.message);
 
-                showStatus('success', `${selectedFiles.length} file berhasil diunggah ke Google Drive dan dicatat di Spreadsheet!`);
+                showStatus('success', `${selectedFiles.length} file berhasil diunggah ke Google Drive dan dicatat di Spreadsheet! <a href="/" class="text-blue-600 text-underline hover:text-red-500">Lihat Album</a>`);
                 selectedFiles = []; folderNameInput.value = ''; renderPreviews();
 
             } catch (error) {
