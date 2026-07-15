@@ -89,7 +89,7 @@
     <!-- Lightbox (Mendukung Gambar & Pemutar Video) -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
         <!-- Container penahan agar klik di dalam gambar/video tidak menutup lightbox -->
-        <div class="relative w-full max-w-4xl max-h-[90vh] flex justify-center items-center"
+        <div class="relative h-[60vh] md:h-[80vh] flex justify-center items-center"
             onclick="event.stopPropagation()">
 
             <!-- Elemen Gambar -->
@@ -98,7 +98,7 @@
 
             <!-- Elemen Video (Google Drive Player) -->
             <iframe id="lightboxVideo" src=""
-                class="w-full aspect-video rounded-2xl shadow-2xl border-4 border-white hidden bg-black"
+                class="w-full h-full aspect-video rounded-xl shadow-2xl border-4 border-white hidden bg-black"
                 allow="autoplay; fullscreen"></iframe>
 
             <!-- Tombol Tutup -->
