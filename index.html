@@ -185,11 +185,8 @@
                 if (isVideo) {
                     // Tampilan blok (thumbnail buatan) untuk video
                     thumbnailHtml = `
-                        <div class="relative w-full h-40 bg-[url(${directUrl})] bg-cover bg-center bg-no-repeat rounded-xl flex flex-col items-center justify-center text-rose-500">
-                            <div class="absolute inset-0 bg-black/50"></div>
-                            <div class="relative z-10">
+                        <div class="w-full h-40 bg-[url(${directUrl})] bg-cover bg-center bg-no-repeat rounded-xl flex flex-col items-center justify-center text-rose-500">
                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                        </div>
                         </div>
                         <div class="text-sm font-bold mt-4 text-rose-500 px-2 w-full text-center">${formatTanggal}</div>`;
                     badgeHtml = `<div class="absolute top-2 left-2 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow">VIDEO</div>`;
