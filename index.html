@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,21 +9,35 @@
     <link rel="icon" type="image/x-icon" href="fav.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
-        body { font-family: 'Quicksand', sans-serif; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+        }
+
         .lightbox {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(85, 84, 84, 0.637);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
-        .album-card { transition: transform 0.3s ease; }
-        .album-card:hover { transform: scale(1.05) rotate(2deg); }
+
+        .album-card {
+            transition: transform 0.3s ease;
+        }
+
+        .album-card:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
     </style>
 </head>
+
 <body class="bg-sky-50 min-h-screen flex flex-col">
 
     <!-- Navbar -->
@@ -30,7 +45,9 @@
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <span class="text-2xl font-bold text-rose-500">🧸 Jennaira Nur Nazila</span>
             <div class="space-x-4 text-sky-700 font-bold">
-                <a href="upload.html" class="hover:text-rose-500"><button class="px-4 py-2 rounded-full shadow-md text-rose-500 hover:text-rose-700 font-bold border border-rose-100"> + Foto Baru</button></a>
+                <a href="upload.html" class="hover:text-rose-500"><button
+                        class="px-4 py-2 rounded-full shadow-md text-rose-500 hover:text-rose-700 font-bold border border-rose-100">
+                        + Foto Baru</button></a>
             </div>
         </div>
     </nav>
@@ -45,13 +62,18 @@
     <main class="flex-grow max-w-4xl w-full mx-auto p-6">
         <!-- Halaman Daftar Folder -->
         <div id="folderView" class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div id="loadingFolders" class="col-span-full text-center py-10 text-sky-700 font-bold">Sedang membuka album...</div>
+            <div id="loadingFolders" class="col-span-full text-center py-10 text-sky-700 font-bold">Sedang membuka
+                album...</div>
         </div>
 
         <!-- Halaman Galeri Gambar & Video -->
         <div id="galleryView" class="hidden">
-            <button onclick="showFolders()" class="mb-6 flex items-center bg-white px-4 py-2 rounded-full shadow-md text-rose-500 hover:text-rose-700 font-bold border border-rose-100 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <button onclick="showFolders()"
+                class="mb-6 flex items-center bg-white px-4 py-2 rounded-full shadow-md text-rose-500 hover:text-rose-700 font-bold border border-rose-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
                 Kembali ke Daftar Album
             </button>
             <h2 id="currentFolderName" class="text-3xl font-bold mb-6 text-sky-800 text-center"></h2>
@@ -67,24 +89,33 @@
     <!-- Lightbox (Mendukung Gambar & Pemutar Video) -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
         <!-- Container penahan agar klik di dalam gambar/video tidak menutup lightbox -->
-        <div class="relative w-full max-w-4xl max-h-[90vh] flex justify-center items-center" onclick="event.stopPropagation()">
-            
+        <div class="relative w-full max-w-4xl max-h-[90vh] flex justify-center items-center"
+            onclick="event.stopPropagation()">
+
             <!-- Elemen Gambar -->
-            <img id="lightboxImg" src="" class="max-w-full max-h-[85vh] rounded-2xl shadow-2xl border-4 border-white hidden object-contain">
-            
+            <img id="lightboxImg" src=""
+                class="max-w-full max-h-[85vh] rounded-2xl shadow-2xl border-4 border-white hidden object-contain">
+
             <!-- Elemen Video (Google Drive Player) -->
-            <iframe id="lightboxVideo" src="" class="w-full aspect-video rounded-2xl shadow-2xl border-4 border-white hidden bg-black" allow="autoplay; fullscreen"></iframe>
-            
+            <iframe id="lightboxVideo" src=""
+                class="w-full aspect-video rounded-2xl shadow-2xl border-4 border-white hidden bg-black"
+                allow="autoplay; fullscreen"></iframe>
+
             <!-- Tombol Tutup -->
-            <button onclick="closeLightbox()" class="absolute -top-5 -right-5 text-rose-500 bg-white p-3 rounded-full shadow-lg hover:bg-rose-50 transition-colors z-50">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <button onclick="closeLightbox()"
+                class="absolute -top-5 -right-5 text-rose-500 bg-white p-3 rounded-full shadow-lg hover:bg-rose-50 transition-colors z-50">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3">
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                </svg>
             </button>
         </div>
     </div>
 
     <script>
         // --- MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI ---
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbzSDUg6MQIsG61HfBo_PiB4gWAinrg3HNRpCnVEFY50cDZ7BKMMQqRccjKlvIZlf_Uz6A/exec"; 
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbzSDUg6MQIsG61HfBo_PiB4gWAinrg3HNRpCnVEFY50cDZ7BKMMQqRccjKlvIZlf_Uz6A/exec";
         let allData = [];
 
         async function fetchData() {
@@ -92,12 +123,12 @@
             try {
                 const response = await fetch(GAS_URL + "?action=getFolders");
                 if (!response.ok) throw new Error("Gagal mengambil data");
-                
+
                 // Balik urutan agar data terbaru ada di paling atas
                 let fetchedData = await response.json();
                 allData = fetchedData.reverse();
-                
-                if(allData.length === 0) {
+
+                if (allData.length === 0) {
                     statusDiv.innerHTML = "Belum ada album. Mulai unggah media Anda!";
                     return;
                 }
@@ -119,41 +150,57 @@
         }
 
         function extractFileId(url) {
-    // Regex ini menangani format /d/ID/view atau id=ID
-    const regex = /(?:\/d\/|id=)([a-zA-Z0-9_-]+)/;
-    const match = url.match(regex);
-    return match ? match[1] : null;
-}
+            // Regex ini menangani format /d/ID/view atau id=ID
+            const regex = /(?:\/d\/|id=)([a-zA-Z0-9_-]+)/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
 
         function showGallery(folderName) {
             document.getElementById('folderView').classList.add('hidden');
             document.getElementById('galleryView').classList.remove('hidden');
             document.getElementById('currentFolderName').textContent = `Album: ${folderName}`;
-            
+
             const mediaItems = allData.filter(row => row[1] === folderName);
             document.getElementById('imageGrid').innerHTML = mediaItems.map(item => {
+                const dateString = item[0];
+                const date = new Date(dateString);
+
+                const formatTanggal = date.toLocaleDateString("id-ID", {
+                    day: "numeric",
+                    month: "long", // Gunakan "short" untuk Jul, "numeric" untuk 07
+                    year: "numeric"
+                });
                 const fileName = item[2];
                 const url = item[3];
-                 const fileId = extractFileId(item[3]);
-    if (!fileId) return `<p>Format URL tidak dikenali: ${item.url}</p>`;
-    const directUrl = `https://lh3.googleusercontent.com/d/${fileId}`;
+                const fileId = extractFileId(item[3]);
+                if (!fileId) return `<p>Format URL tidak dikenali: ${item.url}</p>`;
+                const directUrl = `https://lh3.googleusercontent.com/d/${fileId}`;
                 // Deteksi apakah ini file video dari ekstensinya
                 const isVideo = fileName.toLowerCase().match(/\.(mp4|webm|mov|avi|mkv)$/);
-                
+
                 let thumbnailHtml = '';
                 let badgeHtml = '';
 
                 if (isVideo) {
                     // Tampilan blok (thumbnail buatan) untuk video
                     thumbnailHtml = `
-                        <div class="w-full h-40 bg-sky-100 rounded-xl flex flex-col items-center justify-center text-sky-400">
+                        <div class="relative w-full h-40 bg-[url(${directUrl})] bg-cover bg-center bg-no-repeat rounded-xl flex flex-col items-center justify-center text-rose-500">
+                            <div class="absolute inset-0 bg-black/50"></div>
+                            <div class="relative z-10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                            <span class="text-[10px] font-bold mt-2 text-sky-600 px-2 truncate w-full text-center">${fileName}.mp4</span>
-                        </div>`;
+                        </div>
+                        </div>
+                        <div class="text-sm font-bold mt-4 text-rose-500 px-2 w-full text-center">${formatTanggal}</div>`;
                     badgeHtml = `<div class="absolute top-2 left-2 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow">VIDEO</div>`;
                 } else {
                     // Tampilan gambar asli
-                    thumbnailHtml = `<img src="${directUrl}" loading="lazy" class="w-full h-40 object-cover rounded-xl" alt="${fileName}">`;
+                    thumbnailHtml = `
+                    
+                    <img src="${directUrl}" loading="lazy" class="w-full h-40 object-cover rounded-xl" alt="${fileName}">
+                    <div class="text-sm font-bold mt-4 text-rose-500 px-2 w-full text-center">${formatTanggal}</div>
+                    
+                    `;
                 }
 
                 return `
@@ -193,21 +240,21 @@
                 // Sembunyikan iframe video, tampilkan gambar
                 vidEl.classList.add('hidden');
                 imgEl.classList.remove('hidden');
-                
+
                 vidEl.src = ""; // Hentikan video jika ada yang sebelumnya jalan
                 imgEl.src = lightUrl;
             }
-            
+
             document.getElementById('lightbox').style.display = 'flex';
         }
 
         function closeLightbox(event) {
             // Jika dipanggil oleh event klik dan kliknya bukan pada background hitam (melainkan videonya), hiraukan
-            if(event && event.target.id !== 'lightbox' && event.target.tagName !== 'BUTTON' && event.target.tagName !== 'svg' && event.target.tagName !== 'path') return;
-            
+            if (event && event.target.id !== 'lightbox' && event.target.tagName !== 'BUTTON' && event.target.tagName !== 'svg' && event.target.tagName !== 'path') return;
+
             document.getElementById('lightbox').style.display = 'none';
             document.getElementById('lightboxVideo').src = ""; // Matikan pemutar video agar suaranya berhenti
-            document.getElementById('lightboxImg').src = ""; 
+            document.getElementById('lightboxImg').src = "";
         }
 
         function showFolders() {
@@ -218,4 +265,5 @@
         fetchData();
     </script>
 </body>
+
 </html>
